@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Software Engineer</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Bootstrap CSS (for grid and modals) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --accent-violet: #8b5cf6;
+            --accent-cyan: #06b6d4;
+            --glass-bg: rgba(18, 18, 26, 0.6);
+            --glass-border: rgba(139, 92, 246, 0.2);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Archivo', sans-serif;
+            background: var(--bg-primary);
+            color: #e5e7eb;
+            overflow-x: hidden;
+        }
+        
+        /* Background gradient animation */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+            animation: gradientShift 20s ease infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-5%, -5%) rotate(10deg); }
+        }
+        
+        /* Glassmorphism utilities */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+        }
+        
+        .glass-strong {
+            background: rgba(18, 18, 26, 0.8);
+            backdrop-filter: blur(30px) saturate(200%);
+            -webkit-backdrop-filter: blur(30px) saturate(200%);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+        
+        /* Sticky Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            padding: 1.5rem 0;
+        }
+        
+        nav.scrolled {
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 1rem 0;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav a {
+            color: #e5e7eb;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-violet), var(--accent-cyan));
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        /* Typography */
+        h1, h2, h3 {
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        /* Hero Terminal */
+        .terminal {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.2);
+        }
+        
+        .terminal-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 1rem;
+        }
+        
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .typing-text {
+            color: #06b6d4;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid #06b6d4;
+            animation: typing 3s steps(40) 1s forwards, blink 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+        
+        /* Buttons */
+        .btn-glow {
+            background: linear-gradient(135deg, var(--accent-violet), var(--accent-cyan));
+            color: white;
+            padding: 14px 32px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.6);
+            color: white;
+        }
+        
+        /* Project Cards */
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-8px);
+        }
+        
+        .project-card:hover .project-image {
+            transform: scale(1.1);
+        }
+        
+        .project-image {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(6, 182, 212, 0.3));
+            transition: transform 0.4s ease;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .project-tag {
+            display: inline-block;
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            color: #c4b5fd;
+        }
+        
+        /* Tech Stack Icons */
+        .tech-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .tech-icon:hover {
+            transform: translateY(-8px) rotate(5deg);
+            border-color: var(--accent-violet);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+        }
+        
+        /* Contact Form */
+        .form-control {
+            background: rgba(18, 18, 26, 0.6);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            color: #e5e7eb;
+            border-radius: 8px;
+            padding: 12px 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            background: rgba(18, 18, 26, 0.8);
+            border-color: var(--accent-violet);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+            color: #e5e7eb;
+        }
+        
+        /* Dark/Light Mode Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+        }
+        
+        /* Light Mode Styles */
+        body.light-mode {
+            background: #f8fafc;
+            color: #1e293b;
+        }
+        
+        body.light-mode::before {
+            background: radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.06) 0%, transparent 50%);
+        }
+        
+        body.light-mode {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(139, 92, 246, 0.2);
+        }
+        
+        body.light-mode .glass {
+            background: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.1);
+        }
+        
+        body.light-mode .glass-strong {
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        body.light-mode .form-control {
+            background: rgba(255, 255, 255, 0.8);
+            color: #1e293b;
+        }
+        
+        body.light-mode .terminal {
+            background: rgba(0, 0, 0, 0.8);
+            color: #e5e7eb;
+        }
+        
+        /* Scroll Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        /* Section Styling */
+        section {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, var(--accent-violet), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Modal Customization */
+        .modal-content {
+            background: var(--bg-secondary);
+            border: 1px solid var(--glass-border);
+            color: #e5e7eb;
+        }
+        
+        body.light-mode .modal-content {
+            background: white;
+            color: #1e293b;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .theme-toggle {
+                bottom: 1rem;
+                right: 1rem;
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="#home" class="mono" style="font-size: 1.2rem; font-weight: 700;">{"dev"}</a>
+                <div class="d-flex gap-4">
+                    <a href="#about">About</a>
+                    <a href="#tech">Tech Stack</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" style="min-height: 100vh; display: flex; align-items: center; padding-top: 80px;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7 reveal">
+                    <div class="terminal mb-4">
+                        <div class="terminal-header">
+                            <div class="terminal-dot" style="background: #ff5f56;"></div>
+                            <div class="terminal-dot" style="background: #ffbd2e;"></div>
+                            <div class="terminal-dot" style="background: #27c93f;"></div>
+                        </div>
+                        <div>
+                            <span style="color: #8b5cf6;">$</span> <span style="color: #a78bfa;">searching for solutions...</span>
+                        </div>
+                        <div class="typing-text" style="margin-top: 0.5rem;">
+                            <span style="color: #06b6d4;">></span> Found: <span style="color: #34d399;">Mr Phoenix</span>
+                        </div>
+                    </div>
+                    
+                    <h1 style="font-size: 4rem; margin-bottom: 1rem; line-height: 1.1;">
+                        Crafting Digital<br>
+                        <span style="background: linear-gradient(135deg, #8b5cf6, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Experiences</span>
+                    </h1>
+                    
+                    <p style="font-size: 1.5rem; color: #94a3b8; margin-bottom: 2rem;">
+                        Software Engineer
+                    </p>
+                    
+                    <p style="font-size: 1.1rem; color: #cbd5e1; margin-bottom: 2.5rem; max-width: 600px;">
+                        Transforming complex problems into elegant solutions. Specialized in building scalable applications with modern technologies.
+                    </p>
+                    
+                    <a href="#projects" class="btn-glow">View Work</a>
+                </div>
+                <div class="col-lg-5 reveal" style="animation-delay: 0.2s;">
+                    <div style="position: relative;">
+                        <div style="width: 100%; aspect-ratio: 1; background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(6, 182, 212, 0.2)); border-radius: 50%; filter: blur(60px); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
+                        <div style="width: 100%; aspect-ratio: 1; background: linear-gradient(135deg, #8b5cf6, #06b6d4); border-radius: 20px; position: relative; display: flex; align-items: center; justify-content: center; font-size: 8rem; color: rgba(255, 255, 255, 0.3);">
+                            &lt;/&gt;
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title text-center reveal">About Me</h2>
+            <div class="row align-items-center">
+                <div class="col-lg-5 reveal-left">
+                    <div class="glass-strong p-4" style="border-radius: 20px;">
+                        <div style="width: 100%; aspect-ratio: 1; background: linear-gradient(135deg, #8b5cf6, #06b6d4); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 6rem; color: rgba(255, 255, 255, 0.4);">
+                            👨‍💻
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7 reveal-right">
+                    <div class="glass p-5" style="border-radius: 20px;">
+                        <h3 style="font-size: 2rem; margin-bottom: 1.5rem;">Building the Future, One Line at a Time</h3>
+                        <p style="font-size: 1.1rem; line-height: 1.8; color: #cbd5e1; margin-bottom: 1rem;">
+                            With over 5 years of experience in software development, I specialize in creating robust, scalable applications that solve real-world problems. My journey in tech has taken me from startup environments to enterprise-level projects.
+                        </p>
+                        <p style="font-size: 1.1rem; line-height: 1.8; color: #cbd5e1; margin-bottom: 1.5rem;">
+                            I'm passionate about clean code, user experience, and continuous learning. When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, or sharing knowledge with the developer community.
+                        </p>
+                        <div class="d-flex gap-3 flex-wrap">
+                            <div class="glass px-4 py-2" style="border-radius: 8px;">
+                                <span class="mono" style="color: #8b5cf6;">5+</span> Years Experience
+                            </div>
+                            <div class="glass px-4 py-2" style="border-radius: 8px;">
+                                <span class="mono" style="color: #06b6d4;">50+</span> Projects Completed
+                            </div>
+                            <div class="glass px-4 py-2" style="border-radius: 8px;">
+                                <span class="mono" style="color: #34d399;">15+</span> Happy Clients
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section id="tech">
+        <div class="container">
+            <h2 class="section-title text-center reveal">Tech Stack</h2>
+            <div class="row g-4 justify-content-center reveal">
+                <div class="col-6 col-md-4 col-lg-2 text-center">
+                    <div class="tech-icon mx-auto">⚛️</div>
+                    <p class="mt-3 mono" style="font-size: 0.9rem;">React</p>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 text-center">
+                    <div class="tech-icon mx-auto">🟢</div>
+                    <p class="mt-3 mono" style="font-size: 0.9rem;">Node.js</p>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 text-center">
+                    <div class="tech-icon mx-auto">🐍</div>
+                    <p class="mt-3 mono" style="font-size: 0.9rem;">Python</p>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 text-center">
+                    <div class="tech-icon mx-auto">🗄️</div>
+                    <p class="mt-3 mono" style="font-size: 0.9rem;">PostgreSQL</p>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 text-center">
+                    <div class="tech-icon mx-auto">☁️</div>
+                    <p class="mt-3 mono" style="font-size: 0.9rem;">AWS</p>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 text-center">
+                    <div class="tech-icon mx-auto">🐳</div>
+                    <p class="mt-3 mono" style="font-size: 0.9rem;">Docker</p>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 text-center">
+                    <div class="tech-icon mx-auto">📱</div>
+                    <p class="mt-3 mono" style="font-size: 0.9rem;">TypeScript</p>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 text-center">
+                    <div class="tech-icon mx-auto">🎨</div>
+                    <p class="mt-3 mono" style="font-size: 0.9rem;">Tailwind</p>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 text-center">
+                    <div class="tech-icon mx-auto">🔥</div>
+                    <p class="mt-3 mono" style="font-size: 0.9rem;">Firebase</p>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 text-center">
+                    <div class="tech-icon mx-auto">📊</div>
+                    <p class="mt-3 mono" style="font-size: 0.9rem;">GraphQL</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title text-center reveal">Featured Projects</h2>
+            <div class="row g-4">
+                <!-- Project 1 -->
+                <div class="col-lg-4 col-md-6 reveal">
+                    <div class="glass project-card" style="border-radius: 16px;">
+                        <div class="project-image">
+                            🚀
+                        </div>
+                        <div class="p-4">
+                            <h3 style="font-size: 1.5rem; margin-bottom: 0.75rem;">E-Commerce Platform</h3>
+                            <p style="color: #94a3b8; margin-bottom: 1rem; line-height: 1.6;">
+                                Full-stack e-commerce solution with real-time inventory management and payment integration.
+                            </p>
+                            <div class="mb-3">
+                                <span class="project-tag">React</span>
+                                <span class="project-tag">Node.js</span>
+                                <span class="project-tag">MongoDB</span>
+                            </div>
+                            <button class="btn-glow w-100" data-bs-toggle="modal" data-bs-target="#project1Modal">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="col-lg-4 col-md-6 reveal" style="animation-delay: 0.1s;">
+                    <div class="glass project-card" style="border-radius: 16px;">
+                        <div class="project-image">
+                            📊
+                        </div>
+                        <div class="p-4">
+                            <h3 style="font-size: 1.5rem; margin-bottom: 0.75rem;">Analytics Dashboard</h3>
+                            <p style="color: #94a3b8; margin-bottom: 1rem; line-height: 1.6;">
+                                Real-time data visualization dashboard with custom charts and export capabilities.
+                            </p>
+                            <div class="mb-3">
+                                <span class="project-tag">Python</span>
+                                <span class="project-tag">Flask</span>
+                                <span class="project-tag">PostgreSQL</span>
+                            </div>
+                            <button class="btn-glow w-100" data-bs-toggle="modal" data-bs-target="#project2Modal">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="col-lg-4 col-md-6 reveal" style="animation-delay: 0.2s;">
+                    <div class="glass project-card" style="border-radius: 16px;">
+                        <div class="project-image">
+                            🤖
+                        </div>
+                        <div class="p-4">
+                            <h3 style="font-size: 1.5rem; margin-bottom: 0.75rem;">AI Chatbot Assistant</h3>
+                            <p style="color: #94a3b8; margin-bottom: 1rem; line-height: 1.6;">
+                                Natural language processing chatbot with machine learning integration.
+                            </p>
+                            <div class="mb-3">
+                                <span class="project-tag">Python</span>
+                                <span class="project-tag">TensorFlow</span>
+                                <span class="project-tag">NLP</span>
+                            </div>
+                            <button class="btn-glow w-100" data-bs-toggle="modal" data-bs-target="#project3Modal">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="col-lg-4 col-md-6 reveal" style="animation-delay: 0.3s;">
+                    <div class="glass project-card" style="border-radius: 16px;">
+                        <div class="project-image">
+                            📱
+                        </div>
+                        <div class="p-4">
+                            <h3 style="font-size: 1.5rem; margin-bottom: 0.75rem;">Mobile Fitness App</h3>
+                            <p style="color: #94a3b8; margin-bottom: 1rem; line-height: 1.6;">
+                                Cross-platform fitness tracking app with workout plans and progress analytics.
+                            </p>
+                            <div class="mb-3">
+                                <span class="project-tag">React Native</span>
+                                <span class="project-tag">Firebase</span>
+                                <span class="project-tag">API</span>
+                            </div>
+                            <button class="btn-glow w-100" data-bs-toggle="modal" data-bs-target="#project4Modal">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="col-lg-4 col-md-6 reveal" style="animation-delay: 0.4s;">
+                    <div class="glass project-card" style="border-radius: 16px;">
+                        <div class="project-image">
+                            🌐
+                        </div>
+                        <div class="p-4">
+                            <h3 style="font-size: 1.5rem; margin-bottom: 0.75rem;">Social Media Platform</h3>
+                            <p style="color: #94a3b8; margin-bottom: 1rem; line-height: 1.6;">
+                                Full-featured social network with real-time messaging and content sharing.
+                            </p>
+                            <div class="mb-3">
+                                <span class="project-tag">Next.js</span>
+                                <span class="project-tag">GraphQL</span>
+                                <span class="project-tag">Redis</span>
+                            </div>
+                            <button class="btn-glow w-100" data-bs-toggle="modal" data-bs-target="#project5Modal">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 6 -->
+                <div class="col-lg-4 col-md-6 reveal" style="animation-delay: 0.5s;">
+                    <div class="glass project-card" style="border-radius: 16px;">
+                        <div class="project-image">
+                            🎮
+                        </div>
+                        <div class="p-4">
+                            <h3 style="font-size: 1.5rem; margin-bottom: 0.75rem;">Interactive Game Engine</h3>
+                            <p style="color: #94a3b8; margin-bottom: 1rem; line-height: 1.6;">
+                                2D game engine with physics simulation and level editor built from scratch.
+                            </p>
+                            <div class="mb-3">
+                                <span class="project-tag">JavaScript</span>
+                                <span class="project-tag">Canvas</span>
+                                <span class="project-tag">WebGL</span>
+                            </div>
+                            <button class="btn-glow w-100" data-bs-toggle="modal" data-bs-target="#project6Modal">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title text-center reveal">Get In Touch</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8 reveal">
+                    <div class="glass-strong p-5" style="border-radius: 20px;">
+                        <form id="contactForm">
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <label class="form-label" style="font-weight: 600;">Name</label>
+                                    <input type="text" class="form-control" placeholder="Your name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" style="font-weight: 600;">Email</label>
+                                    <input type="email" class="form-control" placeholder="your.email@example.com" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label" style="font-weight: 600;">Subject</label>
+                                    <input type="text" class="form-control" placeholder="Project inquiry" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label" style="font-weight: 600;">Message</label>
+                                    <textarea class="form-control" rows="5" placeholder="Tell me about your project..." required></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn-glow w-100">Send Message</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: var(--bg-secondary); padding: 3rem 0; border-top: 1px solid rgba(139, 92, 246, 0.2);">
+        <div class="container">
+            <div class="text-center">
+                <div class="d-flex justify-content-center gap-4 mb-3">
+                    <a href="#" style="color: #94a3b8; font-size: 1.5rem; transition: all 0.3s;" onmouseover="this.style.color='#8b5cf6'" onmouseout="this.style.color='#94a3b8'">
+                        <span>GitHub</span>
+                    </a>
+                    <a href="#" style="color: #94a3b8; font-size: 1.5rem; transition: all 0.3s;" onmouseover="this.style.color='#8b5cf6'" onmouseout="this.style.color='#94a3b8'">
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="#" style="color: #94a3b8; font-size: 1.5rem; transition: all 0.3s;" onmouseover="this.style.color='#8b5cf6'" onmouseout="this.style.color='#94a3b8'">
+                        <span>Twitter</span>
+                    </a>
+                </div>
+                <p class="mono" style="color: #64748b; margin: 0;">© 2026 Mr Phoenix. Crafted with 💜</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Theme Toggle Button -->
+    <div class="theme-toggle" id="themeToggle">
+        <span id="themeIcon" style="font-size: 1.5rem;">🌙</span>
+    </div>
+
+    <!-- Project Modals -->
+    <!-- Modal 1 -->
+    <div class="modal fade" id="project1Modal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom: 1px solid var(--glass-border);">
+                    <h5 class="modal-title">E-Commerce Platform</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-4" style="width: 100%; height: 300px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(6, 182, 212, 0.3)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 5rem;">
+                        🚀
+                    </div>
+                    <h4 class="mb-3">Project Overview</h4>
+                    <p style="color: #94a3b8; line-height: 1.8;">
+                        A comprehensive e-commerce platform built with React and Node.js, featuring real-time inventory management, secure payment processing through Stripe, and an intuitive admin dashboard. The platform handles thousands of transactions daily and includes advanced features like wishlist management, product recommendations, and order tracking.
+                    </p>
+                    <h5 class="mt-4 mb-3">Key Features</h5>
+                    <ul style="color: #94a3b8; line-height: 1.8;">
+                        <li>Real-time inventory synchronization</li>
+                        <li>Secure payment gateway integration</li>
+                        <li>Advanced search and filtering</li>
+                        <li>Mobile-responsive design</li>
+                        <li>Admin analytics dashboard</li>
+                    </ul>
+                    <div class="mt-4">
+                        <span class="project-tag">React</span>
+                        <span class="project-tag">Node.js</span>
+                        <span class="project-tag">MongoDB</span>
+                        <span class="project-tag">Stripe</span>
+                        <span class="project-tag">Redux</span>
+                    </div>
+                    <div class="d-flex gap-3 mt-4">
+                        <a href="#" class="btn-glow flex-fill text-center">Live Demo</a>
+                        <a href="#" class="btn-glow flex-fill text-center">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2 -->
+    <div class="modal fade" id="project2Modal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom: 1px solid var(--glass-border);">
+                    <h5 class="modal-title">Analytics Dashboard</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-4" style="width: 100%; height: 300px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(6, 182, 212, 0.3)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 5rem;">
+                        📊
+                    </div>
+                    <h4 class="mb-3">Project Overview</h4>
+                    <p style="color: #94a3b8; line-height: 1.8;">
+                        A powerful analytics dashboard built with Python and Flask, providing real-time data visualization and insights. Features custom chart components, data export capabilities, and integration with multiple data sources. Designed for enterprise-level data analysis with robust performance optimization.
+                    </p>
+                    <h5 class="mt-4 mb-3">Key Features</h5>
+                    <ul style="color: #94a3b8; line-height: 1.8;">
+                        <li>Real-time data updates via WebSocket</li>
+                        <li>Interactive custom charts and graphs</li>
+                        <li>Multi-format data export (CSV, PDF, Excel)</li>
+                        <li>Role-based access control</li>
+                        <li>API integration with third-party services</li>
+                    </ul>
+                    <div class="mt-4">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">Flask</span>
+                        <span class="project-tag">PostgreSQL</span>
+                        <span class="project-tag">Chart.js</span>
+                        <span class="project-tag">Redis</span>
+                    </div>
+                    <div class="d-flex gap-3 mt-4">
+                        <a href="#" class="btn-glow flex-fill text-center">Live Demo</a>
+                        <a href="#" class="btn-glow flex-fill text-center">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3 -->
+    <div class="modal fade" id="project3Modal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom: 1px solid var(--glass-border);">
+                    <h5 class="modal-title">AI Chatbot Assistant</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-4" style="width: 100%; height: 300px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(6, 182, 212, 0.3)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 5rem;">
+                        🤖
+                    </div>
+                    <h4 class="mb-3">Project Overview</h4>
+                    <p style="color: #94a3b8; line-height: 1.8;">
+                        An intelligent chatbot assistant powered by natural language processing and machine learning. Capable of understanding context, maintaining conversation history, and providing accurate responses across multiple domains. Integrated with TensorFlow for continuous learning and improvement.
+                    </p>
+                    <h5 class="mt-4 mb-3">Key Features</h5>
+                    <ul style="color: #94a3b8; line-height: 1.8;">
+                        <li>Natural language understanding</li>
+                        <li>Context-aware conversations</li>
+                        <li>Multi-language support</li>
+                        <li>Sentiment analysis</li>
+                        <li>Custom training capabilities</li>
+                    </ul>
+                    <div class="mt-4">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">TensorFlow</span>
+                        <span class="project-tag">NLP</span>
+                        <span class="project-tag">FastAPI</span>
+                        <span class="project-tag">Docker</span>
+                    </div>
+                    <div class="d-flex gap-3 mt-4">
+                        <a href="#" class="btn-glow flex-fill text-center">Live Demo</a>
+                        <a href="#" class="btn-glow flex-fill text-center">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 4 -->
+    <div class="modal fade" id="project4Modal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom: 1px solid var(--glass-border);">
+                    <h5 class="modal-title">Mobile Fitness App</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-4" style="width: 100%; height: 300px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(6, 182, 212, 0.3)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 5rem;">
+                        📱
+                    </div>
+                    <h4 class="mb-3">Project Overview</h4>
+                    <p style="color: #94a3b8; line-height: 1.8;">
+                        Cross-platform mobile fitness application built with React Native. Features comprehensive workout tracking, personalized training plans, progress analytics, and social sharing capabilities. Integrates with wearable devices and health platforms for seamless data synchronization.
+                    </p>
+                    <h5 class="mt-4 mb-3">Key Features</h5>
+                    <ul style="color: #94a3b8; line-height: 1.8;">
+                        <li>Custom workout builder</li>
+                        <li>Progress tracking and analytics</li>
+                        <li>Social features and challenges</li>
+                        <li>Wearable device integration</li>
+                        <li>Nutrition tracking</li>
+                    </ul>
+                    <div class="mt-4">
+                        <span class="project-tag">React Native</span>
+                        <span class="project-tag">Firebase</span>
+                        <span class="project-tag">API</span>
+                        <span class="project-tag">Redux</span>
+                        <span class="project-tag">GraphQL</span>
+                    </div>
+                    <div class="d-flex gap-3 mt-4">
+                        <a href="#" class="btn-glow flex-fill text-center">Live Demo</a>
+                        <a href="#" class="btn-glow flex-fill text-center">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 5 -->
+    <div class="modal fade" id="project5Modal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom: 1px solid var(--glass-border);">
+                    <h5 class="modal-title">Social Media Platform</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-4" style="width: 100%; height: 300px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(6, 182, 212, 0.3)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 5rem;">
+                        🌐
+                    </div>
+                    <h4 class="mb-3">Project Overview</h4>
+                    <p style="color: #94a3b8; line-height: 1.8;">
+                        A full-featured social networking platform built with Next.js and GraphQL. Includes real-time messaging, content sharing, user profiles, and advanced privacy controls. Optimized for scalability and performance with Redis caching and efficient database queries.
+                    </p>
+                    <h5 class="mt-4 mb-3">Key Features</h5>
+                    <ul style="color: #94a3b8; line-height: 1.8;">
+                        <li>Real-time messaging and notifications</li>
+                        <li>Media sharing (photos, videos)</li>
+                        <li>Advanced privacy settings</li>
+                        <li>User authentication and security</li>
+                        <li>Content moderation system</li>
+                    </ul>
+                    <div class="mt-4">
+                        <span class="project-tag">Next.js</span>
+                        <span class="project-tag">GraphQL</span>
+                        <span class="project-tag">Redis</span>
+                        <span class="project-tag">PostgreSQL</span>
+                        <span class="project-tag">WebSocket</span>
+                    </div>
+                    <div class="d-flex gap-3 mt-4">
+                        <a href="#" class="btn-glow flex-fill text-center">Live Demo</a>
+                        <a href="#" class="btn-glow flex-fill text-center">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 6 -->
+    <div class="modal fade" id="project6Modal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom: 1px solid var(--glass-border);">
+                    <h5 class="modal-title">Interactive Game Engine</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-4" style="width: 100%; height: 300px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(6, 182, 212, 0.3)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 5rem;">
+                        🎮
+                    </div>
+                    <h4 class="mb-3">Project Overview</h4>
+                    <p style="color: #94a3b8; line-height: 1.8;">
+                        A 2D game engine built from scratch using JavaScript and Canvas API with WebGL acceleration. Features include physics simulation, particle systems, sprite animation, and a visual level editor. Designed for creating browser-based games with high performance.
+                    </p>
+                    <h5 class="mt-4 mb-3">Key Features</h5>
+                    <ul style="color: #94a3b8; line-height: 1.8;">
+                        <li>Physics engine with collision detection</li>
+                        <li>Visual level editor</li>
+                        <li>Sprite animation system</li>
+                        <li>Particle effects</li>
+                        <li>Audio management</li>
+                    </ul>
+                    <div class="mt-4">
+                        <span class="project-tag">JavaScript</span>
+                        <span class="project-tag">Canvas</span>
+                        <span class="project-tag">WebGL</span>
+                        <span class="project-tag">TypeScript</span>
+                        <span class="project-tag">Webpack</span>
+                    </div>
+                    <div class="d-flex gap-3 mt-4">
+                        <a href="https://github.com/creativedesk1000" target="_blank" class="btn-glow flex-fill text-center">Live Demo</a>
+                        <a href="https://github.com/creativedesk1000" target="_blank" class="btn-glow flex-fill text-center">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll reveal animation
+        const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+        
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            revealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const revealPoint = 100;
+                
+                if (elementTop < windowHeight - revealPoint) {
+                    element.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Initial check
+
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+
+        // Check for saved theme preference
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        if (currentTheme === 'light') {
+            body.classList.add('light-mode');
+            themeIcon.textContent = '☀️';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            
+            if (body.classList.contains('light-mode')) {
+                themeIcon.textContent = '☀️';
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeIcon.textContent = '🌙';
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Contact form submission
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your message! I\'ll get back to you soon.');
+            contactForm.reset();
+        });
+
+        // Terminal typing effect (already handled by CSS, but can add more interactivity)
+        setTimeout(() => {
+            const typingText = document.querySelector('.typing-text');
+            if (typingText) {
+                typingText.style.borderRight = 'none';
+            }
+        }, 4000);
+    </script>
+</body>
+</html>
