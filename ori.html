@@ -1,316 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio - Software Engineer</title>
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Bootstrap CSS (for grid and modals) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
+        rel="stylesheet">
+
     <style>
         :root {
             --bg-primary: #0a0a0f;
             --bg-secondary: #12121a;
             --accent-violet: #8b5cf6;
             --accent-cyan: #06b6d4;
-            --accent-orange: #f97316;
             --glass-bg: rgba(18, 18, 26, 0.6);
             --glass-border: rgba(139, 92, 246, 0.2);
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
-        /* ============================================
-           PRELOADER STYLES
-           ============================================ */
-        
-        /* Preloader Container */
-        #preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            z-index: 99999;
-            background: var(--bg-primary);
-            transition: opacity 0.6s ease, visibility 0.6s ease;
-        }
-        
-        #preloader.fade-out {
-            opacity: 0;
-            visibility: hidden;
-        }
-        
-        /* Preloader Background Gradient */
-        #preloader::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 40% 80%, rgba(249, 115, 22, 0.12) 0%, transparent 50%);
-            animation: gradientShift 15s ease infinite;
-            pointer-events: none;
-            z-index: -1;
-        }
-        
-        /* Phoenix Logo Container */
-        .phoenix-container {
-            position: relative;
-            margin-bottom: 3rem;
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-        
-        /* Phoenix Icon */
-        .phoenix-icon {
-            font-size: 8rem;
-            background: linear-gradient(135deg, var(--accent-violet), var(--accent-cyan), var(--accent-orange));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            filter: drop-shadow(0 0 40px rgba(249, 115, 22, 0.5));
-            animation: pulse 2s ease-in-out infinite;
-            position: relative;
-            z-index: 2;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { 
-                filter: drop-shadow(0 0 40px rgba(249, 115, 22, 0.5));
-                transform: scale(1);
-            }
-            50% { 
-                filter: drop-shadow(0 0 60px rgba(249, 115, 22, 0.8));
-                transform: scale(1.05);
-            }
-        }
-        
-        /* Glow effect behind phoenix */
-        .phoenix-glow {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(249, 115, 22, 0.4), transparent 70%);
-            animation: glowPulse 2s ease-in-out infinite;
-            z-index: 1;
-        }
-        
-        @keyframes glowPulse {
-            0%, 100% { 
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 0.6;
-            }
-            50% { 
-                transform: translate(-50%, -50%) scale(1.2);
-                opacity: 1;
-            }
-        }
-        
-        /* Name Text */
-        .name-container {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        
-        .name-text {
-            font-size: 3rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            background: linear-gradient(135deg, #8b5cf6, #06b6d4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: fadeInUp 1s ease-out;
-            position: relative;
-            text-transform: uppercase;
-        }
-        
-        .name-subtitle {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            color: #94a3b8;
-            letter-spacing: 0.3em;
-            margin-top: 0.5rem;
-            animation: fadeInUp 1s ease-out 0.2s backwards;
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Loading Bar Container */
-        .loading-container {
-            width: 300px;
-            animation: fadeInUp 1s ease-out 0.4s backwards;
-        }
-        
-        .loading-bar-bg {
-            width: 100%;
-            height: 4px;
-            background: rgba(139, 92, 246, 0.2);
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .loading-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent-violet), var(--accent-cyan), var(--accent-orange));
-            border-radius: 10px;
-            width: 0%;
-            animation: loadingProgress 2.5s ease-in-out forwards;
-            box-shadow: 0 0 20px rgba(139, 92, 246, 0.6);
-        }
-        
-        @keyframes loadingProgress {
-            0% { width: 0%; }
-            100% { width: 100%; }
-        }
-        
-        /* Loading percentage */
-        .loading-percentage {
-            text-align: center;
-            margin-top: 1rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            color: #06b6d4;
-            font-weight: 600;
-        }
-        
-        /* Loading dots animation */
-        .loading-dots {
-            display: inline-block;
-        }
-        
-        .loading-dots::after {
-            content: '';
-            animation: dots 1.5s steps(4, end) infinite;
-        }
-        
-        @keyframes dots {
-            0%, 20% { content: ''; }
-            40% { content: '.'; }
-            60% { content: '..'; }
-            80%, 100% { content: '...'; }
-        }
-        
-        /* Particles */
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--accent-orange);
-            border-radius: 50%;
-            opacity: 0;
-            animation: particleFloat 3s ease-in-out infinite;
-        }
-        
-        .particle:nth-child(1) {
-            top: 20%;
-            left: 20%;
-            animation-delay: 0s;
-        }
-        
-        .particle:nth-child(2) {
-            top: 40%;
-            left: 80%;
-            animation-delay: 0.5s;
-        }
-        
-        .particle:nth-child(3) {
-            top: 60%;
-            left: 30%;
-            animation-delay: 1s;
-        }
-        
-        .particle:nth-child(4) {
-            top: 80%;
-            left: 70%;
-            animation-delay: 1.5s;
-        }
-        
-        .particle:nth-child(5) {
-            top: 30%;
-            left: 50%;
-            animation-delay: 2s;
-        }
-        
-        @keyframes particleFloat {
-            0%, 100% {
-                opacity: 0;
-                transform: translateY(0) scale(1);
-            }
-            50% {
-                opacity: 1;
-                transform: translateY(-50px) scale(1.5);
-            }
-        }
-        
-        /* Preloader responsive styles */
-        @media (max-width: 768px) {
-            .phoenix-icon {
-                font-size: 5rem;
-            }
-            
-            .name-text {
-                font-size: 2rem;
-            }
-            
-            .name-subtitle {
-                font-size: 0.75rem;
-            }
-            
-            .loading-container {
-                width: 250px;
-            }
-        }
-        
-        /* ============================================
-           END PRELOADER STYLES
-           ============================================ */
-        
+
         body {
             font-family: 'Archivo', sans-serif;
             background: var(--bg-primary);
             color: #e5e7eb;
             overflow-x: hidden;
         }
-        
+
         /* Background gradient animation */
         body::before {
             content: '';
@@ -320,18 +51,25 @@
             width: 200%;
             height: 200%;
             background: radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 40% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+                radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
             animation: gradientShift 20s ease infinite;
             pointer-events: none;
             z-index: -1;
         }
-        
+
         @keyframes gradientShift {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(-5%, -5%) rotate(10deg); }
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            50% {
+                transform: translate(-5%, -5%) rotate(10deg);
+            }
         }
-        
+
         /* Glassmorphism utilities */
         .glass {
             background: var(--glass-bg);
@@ -340,14 +78,14 @@
             border: 1px solid var(--glass-border);
             border-radius: 16px;
         }
-        
+
         .glass-strong {
             background: rgba(18, 18, 26, 0.8);
             backdrop-filter: blur(30px) saturate(200%);
             -webkit-backdrop-filter: blur(30px) saturate(200%);
             border: 1px solid rgba(139, 92, 246, 0.3);
         }
-        
+
         /* Sticky Navigation */
         nav {
             position: fixed;
@@ -357,7 +95,7 @@
             transition: all 0.3s ease;
             padding: 1.5rem 0;
         }
-        
+
         nav.scrolled {
             background: rgba(10, 10, 15, 0.8);
             backdrop-filter: blur(20px);
@@ -365,7 +103,7 @@
             padding: 1rem 0;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
-        
+
         nav a {
             color: #e5e7eb;
             text-decoration: none;
@@ -375,7 +113,7 @@
             transition: all 0.3s ease;
             position: relative;
         }
-        
+
         nav a::after {
             content: '';
             position: absolute;
@@ -386,21 +124,23 @@
             background: linear-gradient(90deg, var(--accent-violet), var(--accent-cyan));
             transition: width 0.3s ease;
         }
-        
+
         nav a:hover::after {
             width: 100%;
         }
-        
+
         /* Typography */
-        h1, h2, h3 {
+        h1,
+        h2,
+        h3 {
             font-weight: 700;
             letter-spacing: -0.02em;
         }
-        
+
         .mono {
             font-family: 'JetBrains Mono', monospace;
         }
-        
+
         /* Hero Terminal */
         .terminal {
             background: rgba(0, 0, 0, 0.6);
@@ -411,19 +151,19 @@
             font-size: 0.9rem;
             box-shadow: 0 0 40px rgba(139, 92, 246, 0.2);
         }
-        
+
         .terminal-header {
             display: flex;
             gap: 8px;
             margin-bottom: 1rem;
         }
-        
+
         .terminal-dot {
             width: 12px;
             height: 12px;
             border-radius: 50%;
         }
-        
+
         .typing-text {
             color: #06b6d4;
             overflow: hidden;
@@ -431,16 +171,23 @@
             border-right: 2px solid #06b6d4;
             animation: typing 3s steps(40) 1s forwards, blink 0.75s step-end infinite;
         }
-        
+
         @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
         }
-        
+
         @keyframes blink {
-            50% { border-color: transparent; }
+            50% {
+                border-color: transparent;
+            }
         }
-        
+
         /* Buttons */
         .btn-glow {
             background: linear-gradient(135deg, var(--accent-violet), var(--accent-cyan));
@@ -456,13 +203,13 @@
             text-decoration: none;
             display: inline-block;
         }
-        
+
         .btn-glow:hover {
             transform: translateY(-2px);
             box-shadow: 0 0 40px rgba(139, 92, 246, 0.6);
             color: white;
         }
-        
+
         /* Project Cards */
         .project-card {
             position: relative;
@@ -470,15 +217,15 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             height: 100%;
         }
-        
+
         .project-card:hover {
             transform: translateY(-8px);
         }
-        
+
         .project-card:hover .project-image {
             transform: scale(1.1);
         }
-        
+
         .project-image {
             width: 100%;
             height: 220px;
@@ -491,7 +238,7 @@
             font-size: 3rem;
             color: rgba(255, 255, 255, 0.5);
         }
-        
+
         .project-tag {
             display: inline-block;
             background: rgba(139, 92, 246, 0.2);
@@ -504,7 +251,7 @@
             margin-bottom: 8px;
             color: #c4b5fd;
         }
-        
+
         /* Tech Stack Icons */
         .tech-icon {
             width: 80px;
@@ -519,13 +266,13 @@
             font-size: 2.5rem;
             transition: all 0.3s ease;
         }
-        
+
         .tech-icon:hover {
             transform: translateY(-8px) rotate(5deg);
             border-color: var(--accent-violet);
             box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
         }
-        
+
         /* Contact Form */
         .form-control {
             background: rgba(18, 18, 26, 0.6);
@@ -535,14 +282,14 @@
             padding: 12px 16px;
             transition: all 0.3s ease;
         }
-        
+
         .form-control:focus {
             background: rgba(18, 18, 26, 0.8);
             border-color: var(--accent-violet);
             box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
             color: #e5e7eb;
         }
-        
+
         /* Dark/Light Mode Toggle */
         .theme-toggle {
             position: fixed;
@@ -562,88 +309,88 @@
             z-index: 999;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
-        
+
         .theme-toggle:hover {
             transform: scale(1.1);
             box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
         }
-        
+
         /* Light Mode Styles */
         body.light-mode {
             background: #f8fafc;
             color: #1e293b;
         }
-        
+
         body.light-mode::before {
             background: radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.06) 0%, transparent 50%);
+                radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.06) 0%, transparent 50%);
         }
-        
+
         body.light-mode {
             --bg-primary: #f8fafc;
             --bg-secondary: #ffffff;
             --glass-bg: rgba(255, 255, 255, 0.7);
             --glass-border: rgba(139, 92, 246, 0.2);
         }
-        
+
         body.light-mode .glass {
             background: rgba(255, 255, 255, 0.7);
             box-shadow: 0 8px 32px rgba(139, 92, 246, 0.1);
         }
-        
+
         body.light-mode .glass-strong {
             background: rgba(255, 255, 255, 0.9);
         }
-        
+
         body.light-mode .form-control {
             background: rgba(255, 255, 255, 0.8);
             color: #1e293b;
         }
-        
+
         body.light-mode .terminal {
             background: rgba(0, 0, 0, 0.8);
             color: #e5e7eb;
         }
-        
+
         /* Scroll Reveal Animations */
         .reveal {
             opacity: 0;
             transform: translateY(50px);
             transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
+
         .reveal.active {
             opacity: 1;
             transform: translateY(0);
         }
-        
+
         .reveal-left {
             opacity: 0;
             transform: translateX(-50px);
             transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
+
         .reveal-left.active {
             opacity: 1;
             transform: translateX(0);
         }
-        
+
         .reveal-right {
             opacity: 0;
             transform: translateX(50px);
             transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
+
         .reveal-right.active {
             opacity: 1;
             transform: translateX(0);
         }
-        
+
         /* Section Styling */
         section {
             padding: 100px 0;
         }
-        
+
         .section-title {
             font-size: 3rem;
             margin-bottom: 3rem;
@@ -652,29 +399,29 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        
+
         /* Modal Customization */
         .modal-content {
             background: var(--bg-secondary);
             border: 1px solid var(--glass-border);
             color: #e5e7eb;
         }
-        
+
         body.light-mode .modal-content {
             background: white;
             color: #1e293b;
         }
-        
+
         /* Responsive */
         @media (max-width: 768px) {
             .section-title {
                 font-size: 2rem;
             }
-            
+
             section {
                 padding: 60px 0;
             }
-            
+
             .theme-toggle {
                 bottom: 1rem;
                 right: 1rem;
@@ -684,39 +431,8 @@
         }
     </style>
 </head>
-<body>
-    <!-- Preloader -->
-    <div id="preloader">
-        <!-- Floating particles -->
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        
-        <!-- Phoenix Logo -->
-        <div class="phoenix-container">
-            <div class="phoenix-glow"></div>
-            <div class="phoenix-icon">🔥</div>
-        </div>
-        
-        <!-- Name -->
-        <div class="name-container">
-            <div class="name-text">Mr Phoenix</div>
-            <div class="name-subtitle">PORTFOLIO</div>
-        </div>
-        
-        <!-- Loading Bar -->
-        <div class="loading-container">
-            <div class="loading-bar-bg">
-                <div class="loading-bar"></div>
-            </div>
-            <div class="loading-percentage">
-                <span id="percentage">0</span>%<span class="loading-dots"></span>
-            </div>
-        </div>
-    </div>
 
+<body>
     <!-- Navigation -->
     <nav id="navbar">
         <div class="container">
@@ -744,32 +460,39 @@
                             <div class="terminal-dot" style="background: #27c93f;"></div>
                         </div>
                         <div>
-                            <span style="color: #8b5cf6;">$</span> <span style="color: #a78bfa;">searching for solutions...</span>
+                            <span style="color: #8b5cf6;">$</span> <span style="color: #a78bfa;">searching for
+                                solutions...</span>
                         </div>
                         <div class="typing-text" style="margin-top: 0.5rem;">
-                            <span style="color: #06b6d4;">></span> Found: <span style="color: #34d399;">Mr Phoenix</span>
+                            <span style="color: #06b6d4;">></span> Found: <span style="color: #34d399;">Mr
+                                Phoenix</span>
                         </div>
                     </div>
-                    
+
                     <h1 style="font-size: 4rem; margin-bottom: 1rem; line-height: 1.1;">
                         Crafting Digital<br>
-                        <span style="background: linear-gradient(135deg, #8b5cf6, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Experiences</span>
+                        <span
+                            style="background: linear-gradient(135deg, #8b5cf6, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Experiences</span>
                     </h1>
-                    
+
                     <p style="font-size: 1.5rem; color: #94a3b8; margin-bottom: 2rem;">
                         Software Engineer
                     </p>
-                    
+
                     <p style="font-size: 1.1rem; color: #cbd5e1; margin-bottom: 2.5rem; max-width: 600px;">
-                        Transforming complex problems into elegant solutions. Specialized in building scalable applications with modern technologies.
+                        Transforming complex problems into elegant solutions. Specialized in building scalable
+                        applications with modern technologies.
                     </p>
-                    
+
                     <a href="#projects" class="btn-glow">View Work</a>
                 </div>
                 <div class="col-lg-5 reveal" style="animation-delay: 0.2s;">
                     <div style="position: relative;">
-                        <div style="width: 100%; aspect-ratio: 1; background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(6, 182, 212, 0.2)); border-radius: 50%; filter: blur(60px); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
-                        <div style="width: 100%; aspect-ratio: 1; background: linear-gradient(135deg, #8b5cf6, #06b6d4); border-radius: 20px; position: relative; display: flex; align-items: center; justify-content: center; font-size: 8rem; color: rgba(255, 255, 255, 0.3);">
+                        <div
+                            style="width: 100%; aspect-ratio: 1; background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(6, 182, 212, 0.2)); border-radius: 50%; filter: blur(60px); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                        </div>
+                        <div
+                            style="width: 100%; aspect-ratio: 1; background: linear-gradient(135deg, #8b5cf6, #06b6d4); border-radius: 20px; position: relative; display: flex; align-items: center; justify-content: center; font-size: 8rem; color: rgba(255, 255, 255, 0.3);">
                             &lt;/&gt;
                         </div>
                     </div>
@@ -785,7 +508,8 @@
             <div class="row align-items-center">
                 <div class="col-lg-5 reveal-left">
                     <div class="glass-strong p-4" style="border-radius: 20px;">
-                        <div style="width: 100%; aspect-ratio: 1; background: linear-gradient(135deg, #8b5cf6, #06b6d4); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 6rem; color: rgba(255, 255, 255, 0.4);">
+                        <div
+                            style="width: 100%; aspect-ratio: 1; background: linear-gradient(135deg, #8b5cf6, #06b6d4); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 6rem; color: rgba(255, 255, 255, 0.4);">
                             👨‍💻
                         </div>
                     </div>
@@ -794,10 +518,14 @@
                     <div class="glass p-5" style="border-radius: 20px;">
                         <h3 style="font-size: 2rem; margin-bottom: 1.5rem;">Building the Future, One Line at a Time</h3>
                         <p style="font-size: 1.1rem; line-height: 1.8; color: #cbd5e1; margin-bottom: 1rem;">
-                            With over 5 years of experience in software development, I specialize in creating robust, scalable applications that solve real-world problems. My journey in tech has taken me from startup environments to enterprise-level projects.
+                            With over 5 years of experience in software development, I specialize in creating robust,
+                            scalable applications that solve real-world problems. My journey in tech has taken me from
+                            startup environments to enterprise-level projects.
                         </p>
                         <p style="font-size: 1.1rem; line-height: 1.8; color: #cbd5e1; margin-bottom: 1.5rem;">
-                            I'm passionate about clean code, user experience, and continuous learning. When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, or sharing knowledge with the developer community.
+                            I'm passionate about clean code, user experience, and continuous learning. When I'm not
+                            coding, you'll find me exploring new technologies, contributing to open-source projects, or
+                            sharing knowledge with the developer community.
                         </p>
                         <div class="d-flex gap-3 flex-wrap">
                             <div class="glass px-4 py-2" style="border-radius: 8px;">
@@ -827,7 +555,7 @@
                 </div>
                 <div class="col-6 col-md-4 col-lg-2 text-center">
                     <div class="tech-icon mx-auto">🟢</div>
-                    <p class="mt-3 mono" style="font-size: 0.9rem;">Devops</p>
+                    <p class="mt-3 mono" style="font-size: 0.9rem;">Node.js</p>
                 </div>
                 <div class="col-6 col-md-4 col-lg-2 text-center">
                     <div class="tech-icon mx-auto">🐍</div>
@@ -847,7 +575,7 @@
                 </div>
                 <div class="col-6 col-md-4 col-lg-2 text-center">
                     <div class="tech-icon mx-auto">📱</div>
-                    <p class="mt-3 mono" style="font-size: 0.9rem;">Laravel PHP</p>
+                    <p class="mt-3 mono" style="font-size: 0.9rem;">TypeScript</p>
                 </div>
                 <div class="col-6 col-md-4 col-lg-2 text-center">
                     <div class="tech-icon mx-auto">🎨</div>
@@ -859,7 +587,7 @@
                 </div>
                 <div class="col-6 col-md-4 col-lg-2 text-center">
                     <div class="tech-icon mx-auto">📊</div>
-                    <p class="mt-3 mono" style="font-size: 0.9rem;">Flutter</p>
+                    <p class="mt-3 mono" style="font-size: 0.9rem;">GraphQL</p>
                 </div>
             </div>
         </div>
@@ -873,19 +601,19 @@
                 <!-- Project 1 -->
                 <div class="col-lg-4 col-md-6 reveal">
                     <div class="glass project-card" style="border-radius: 16px;">
-                    <div class="project-image">
-    <img src="assets/img/ecommerce.webp" alt="E-Commerce Platform" loading="lazy">
-</div>
-
+                        <div class="project-image">
+                            🚀
+                        </div>
                         <div class="p-4">
                             <h3 style="font-size: 1.5rem; margin-bottom: 0.75rem;">E-Commerce Platform</h3>
                             <p style="color: #94a3b8; margin-bottom: 1rem; line-height: 1.6;">
-                                Full-stack e-commerce solution with real-time inventory management and payment integration.
+                                Full-stack e-commerce solution with real-time inventory management and payment
+                                integration.
                             </p>
                             <div class="mb-3">
-                                <span class="project-tag">PHP</span>
-                                <span class="project-tag">Mysql</span>
-                                <span class="project-tag">Hostinger</span>
+                                <span class="project-tag">React</span>
+                                <span class="project-tag">Node.js</span>
+                                <span class="project-tag">MongoDB</span>
                             </div>
                             <button class="btn-glow w-100" data-bs-toggle="modal" data-bs-target="#project1Modal">
                                 View Details
@@ -897,19 +625,18 @@
                 <!-- Project 2 -->
                 <div class="col-lg-4 col-md-6 reveal" style="animation-delay: 0.1s;">
                     <div class="glass project-card" style="border-radius: 16px;">
-                      <div class="project-image">
-    <img src="epo.png" alt="Environmental Productivity Organization" loading="lazy">
-</div>
-
+                        <div class="project-image">
+                            📊
+                        </div>
                         <div class="p-4">
-                            <h3 style="font-size: 1.5rem; margin-bottom: 0.75rem;">Environmental Productivity Organization(EPO)</h3>
+                            <h3 style="font-size: 1.5rem; margin-bottom: 0.75rem;">Analytics Dashboard</h3>
                             <p style="color: #94a3b8; margin-bottom: 1rem; line-height: 1.6;">
-                                Real-time App & Website  for monitoring and optimizing agricultural productivity with Sales Purchase & IoT.
+                                Real-time data visualization dashboard with custom charts and export capabilities.
                             </p>
                             <div class="mb-3">
-                                <span class="project-tag">PHP Laravel</span>
-                                <span class="project-tag">Flutter Dart</span>
-                                <span class="project-tag">AWS</span>
+                                <span class="project-tag">Python</span>
+                                <span class="project-tag">Flask</span>
+                                <span class="project-tag">PostgreSQL</span>
                             </div>
                             <button class="btn-glow w-100" data-bs-toggle="modal" data-bs-target="#project2Modal">
                                 View Details
@@ -921,19 +648,18 @@
                 <!-- Project 3 -->
                 <div class="col-lg-4 col-md-6 reveal" style="animation-delay: 0.2s;">
                     <div class="glass project-card" style="border-radius: 16px;">
-                      <div class="project-image">
-    <img src="drneuro.png" alt="Neuro Medical System App" loading="lazy">
-</div>
-
+                        <div class="project-image">
+                            🤖
+                        </div>
                         <div class="p-4">
-                            <h3 style="font-size: 1.5rem; margin-bottom: 0.75rem;">Dr-Mehboob Neuro Medical System with App</h3>
+                            <h3 style="font-size: 1.5rem; margin-bottom: 0.75rem;">AI Chatbot Assistant</h3>
                             <p style="color: #94a3b8; margin-bottom: 1rem; line-height: 1.6;">
                                 Natural language processing chatbot with machine learning integration.
                             </p>
                             <div class="mb-3">
-                                <span class="project-tag">Laravel</span>
-                                <span class="project-tag">Flutter</span>
-                                <span class="project-tag">Hostinger</span>
+                                <span class="project-tag">Python</span>
+                                <span class="project-tag">TensorFlow</span>
+                                <span class="project-tag">NLP</span>
                             </div>
                             <button class="btn-glow w-100" data-bs-toggle="modal" data-bs-target="#project3Modal">
                                 View Details
@@ -949,12 +675,12 @@
                             📱
                         </div>
                         <div class="p-4">
-                            <h3 style="font-size: 1.5rem; margin-bottom: 0.75rem;">Grocery App</h3>
+                            <h3 style="font-size: 1.5rem; margin-bottom: 0.75rem;">Mobile Fitness App</h3>
                             <p style="color: #94a3b8; margin-bottom: 1rem; line-height: 1.6;">
-                                Cross-platform Grocery  app with easy buying and selling of Fresh products.
+                                Cross-platform fitness tracking app with workout plans and progress analytics.
                             </p>
                             <div class="mb-3">
-                                <span class="project-tag">Flutter</span>
+                                <span class="project-tag">React Native</span>
                                 <span class="project-tag">Firebase</span>
                                 <span class="project-tag">API</span>
                             </div>
@@ -968,19 +694,18 @@
                 <!-- Project 5 -->
                 <div class="col-lg-4 col-md-6 reveal" style="animation-delay: 0.4s;">
                     <div class="glass project-card" style="border-radius: 16px;">
-                      <div class="project-image">
-    <img src="vehicle.png" alt="Vehicle Rental Platform" loading="lazy">
-</div>
-
+                        <div class="project-image">
+                            🌐
+                        </div>
                         <div class="p-4">
-                            <h3 style="font-size: 1.5rem; margin-bottom: 0.75rem;">Vehicle Rental Platform</h3>
+                            <h3 style="font-size: 1.5rem; margin-bottom: 0.75rem;">Social Media Platform</h3>
                             <p style="color: #94a3b8; margin-bottom: 1rem; line-height: 1.6;">
                                 Full-featured social network with real-time messaging and content sharing.
                             </p>
                             <div class="mb-3">
-                                <span class="project-tag">Laravel</span>
-                                <span class="project-tag">MYSQL</span>
-                                <span class="project-tag">Restful Api</span>
+                                <span class="project-tag">Next.js</span>
+                                <span class="project-tag">GraphQL</span>
+                                <span class="project-tag">Redis</span>
                             </div>
                             <button class="btn-glow w-100" data-bs-toggle="modal" data-bs-target="#project5Modal">
                                 View Details
@@ -990,42 +715,30 @@
                 </div>
 
                 <!-- Project 6 -->
-              <div class="col-lg-4 col-md-6 reveal" style="animation-delay: 0.5s;">
-    <div class="glass project-card" style="border-radius: 16px; overflow: hidden;">
-        
-        <!-- Project Image -->
-        <div class="project-image">
-            <img src="cover1.jpeg"
-                 alt="XAI Pediatric Diagnosis System"
-                 loading="lazy">
-        </div>
-
-        <div class="p-4">
-            <h3 style="font-size: 1.5rem; margin-bottom: 0.75rem;">
-                XAI Pediatric Diagnosis System
-            </h3>
-
-            <p style="color: #94a3b8; margin-bottom: 1rem; line-height: 1.6;">
-                AI-powered system for pediatric diagnosis and exercise recommendations.
-                Includes Agentic AI, monitoring, and a voice-enabled chatbot for easy access.
-            </p>
-
-            <div class="mb-3">
-                <span class="project-tag">Python</span>
-                <span class="project-tag">Django</span>
-                <span class="project-tag">FastAPI</span>
-                <span class="project-tag">TensorFlow</span>
-                <span class="project-tag">NLP</span>
-                <span class="project-tag">Docker</span>
+                <div class="col-lg-4 col-md-6 reveal" style="animation-delay: 0.5s;">
+                    <div class="glass project-card" style="border-radius: 16px;">
+                        <div class="project-image">
+                            🎮
+                        </div>
+                        <div class="p-4">
+                            <h3 style="font-size: 1.5rem; margin-bottom: 0.75rem;">Interactive Game Engine</h3>
+                            <p style="color: #94a3b8; margin-bottom: 1rem; line-height: 1.6;">
+                                2D game engine with physics simulation and level editor built from scratch.
+                            </p>
+                            <div class="mb-3">
+                                <span class="project-tag">JavaScript</span>
+                                <span class="project-tag">Canvas</span>
+                                <span class="project-tag">WebGL</span>
+                            </div>
+                            <button class="btn-glow w-100" data-bs-toggle="modal" data-bs-target="#project6Modal">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <button class="btn-glow w-100" data-bs-toggle="modal" data-bs-target="#project6Modal">
-                View Details
-            </button>
         </div>
-    </div>
-</div>
-</section>
+    </section>
 
     <!-- Contact Section -->
     <section id="contact">
@@ -1042,7 +755,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label" style="font-weight: 600;">Email</label>
-                                    <input type="email" class="form-control" placeholder="your.email@example.com" required>
+                                    <input type="email" class="form-control" placeholder="your.email@example.com"
+                                        required>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label" style="font-weight: 600;">Subject</label>
@@ -1050,7 +764,8 @@
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label" style="font-weight: 600;">Message</label>
-                                    <textarea class="form-control" rows="5" placeholder="Tell me about your project..." required></textarea>
+                                    <textarea class="form-control" rows="5" placeholder="Tell me about your project..."
+                                        required></textarea>
                                 </div>
                                 <div class="col-12">
                                     <button type="submit" class="btn-glow w-100">Send Message</button>
@@ -1068,11 +783,12 @@
         <div class="container">
             <div class="text-center">
                 <div class="d-flex justify-content-center gap-4 mb-3">
-                  <a href="#" style="color: #94a3b8; font-size: 1.5rem; transition: all 0.3s;"
+                    <a href="#" style="color: #94a3b8; font-size: 1.5rem; transition: all 0.3s;"
                         onmouseover="this.style.color='#8b5cf6'" onmouseout="this.style.color='#94a3b8'">
                         <span>GitHub</span>
                     </a>
-                    <a href="https://www.linkedin.com/in/ahtesham-mughal-8bb862269/" target="_blank" style="color: #94a3b8; font-size: 1.5rem; transition: all 0.3s;" onmouseover="this.style.color='#8b5cf6'" onmouseout="this.style.color='#94a3b8'">
+                    <a href="#" style="color: #94a3b8; font-size: 1.5rem; transition: all 0.3s;"
+                        onmouseover="this.style.color='#8b5cf6'" onmouseout="this.style.color='#94a3b8'">
                         <span>LinkedIn</span>
                     </a>
                     <a href="https://wa.me/923485329512" target="_blank"
@@ -1080,8 +796,10 @@
                         onmouseover="this.style.color='#25D366'" onmouseout="this.style.color='#94a3b8'">
                         <span>WhatsApp</span>
                     </a>
+
+
                 </div>
-                <p class="mono" style="color: #64748b; margin: 0;">© 2026 Mr Phoenix. Crafted with 💜</p>
+                <p class="mono" style="color: #64748b; margin: 0;">© 2026 Mr. Crafted with 💜</p>
             </div>
         </div>
     </footer>
@@ -1101,12 +819,16 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-4" style="width: 100%; height: 300px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(6, 182, 212, 0.3)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 5rem;">
+                    <div class="mb-4"
+                        style="width: 100%; height: 300px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(6, 182, 212, 0.3)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 5rem;">
                         🚀
                     </div>
                     <h4 class="mb-3">Project Overview</h4>
                     <p style="color: #94a3b8; line-height: 1.8;">
-                        A comprehensive e-commerce platform built with React and Node.js, featuring real-time inventory management, secure payment processing through Stripe, and an intuitive admin dashboard. The platform handles thousands of transactions daily and includes advanced features like wishlist management, product recommendations, and order tracking.
+                        A comprehensive e-commerce platform built with React and Node.js, featuring real-time inventory
+                        management, secure payment processing through Stripe, and an intuitive admin dashboard. The
+                        platform handles thousands of transactions daily and includes advanced features like wishlist
+                        management, product recommendations, and order tracking.
                     </p>
                     <h5 class="mt-4 mb-3">Key Features</h5>
                     <ul style="color: #94a3b8; line-height: 1.8;">
@@ -1141,12 +863,16 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-4" style="width: 100%; height: 300px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(6, 182, 212, 0.3)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 5rem;">
+                    <div class="mb-4"
+                        style="width: 100%; height: 300px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(6, 182, 212, 0.3)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 5rem;">
                         📊
                     </div>
                     <h4 class="mb-3">Project Overview</h4>
                     <p style="color: #94a3b8; line-height: 1.8;">
-                        A powerful analytics dashboard built with Python and Flask, providing real-time data visualization and insights. Features custom chart components, data export capabilities, and integration with multiple data sources. Designed for enterprise-level data analysis with robust performance optimization.
+                        A powerful analytics dashboard built with Python and Flask, providing real-time data
+                        visualization and insights. Features custom chart components, data export capabilities, and
+                        integration with multiple data sources. Designed for enterprise-level data analysis with robust
+                        performance optimization.
                     </p>
                     <h5 class="mt-4 mb-3">Key Features</h5>
                     <ul style="color: #94a3b8; line-height: 1.8;">
@@ -1181,12 +907,16 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-4" style="width: 100%; height: 300px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(6, 182, 212, 0.3)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 5rem;">
+                    <div class="mb-4"
+                        style="width: 100%; height: 300px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(6, 182, 212, 0.3)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 5rem;">
                         🤖
                     </div>
                     <h4 class="mb-3">Project Overview</h4>
                     <p style="color: #94a3b8; line-height: 1.8;">
-                        An intelligent chatbot assistant powered by natural language processing and machine learning. Capable of understanding context, maintaining conversation history, and providing accurate responses across multiple domains. Integrated with TensorFlow for continuous learning and improvement.
+                        An intelligent chatbot assistant powered by natural language processing and machine learning.
+                        Capable of understanding context, maintaining conversation history, and providing accurate
+                        responses across multiple domains. Integrated with TensorFlow for continuous learning and
+                        improvement.
                     </p>
                     <h5 class="mt-4 mb-3">Key Features</h5>
                     <ul style="color: #94a3b8; line-height: 1.8;">
@@ -1221,12 +951,16 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-4" style="width: 100%; height: 300px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(6, 182, 212, 0.3)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 5rem;">
+                    <div class="mb-4"
+                        style="width: 100%; height: 300px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(6, 182, 212, 0.3)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 5rem;">
                         📱
                     </div>
                     <h4 class="mb-3">Project Overview</h4>
                     <p style="color: #94a3b8; line-height: 1.8;">
-                        Cross-platform mobile fitness application built with React Native. Features comprehensive workout tracking, personalized training plans, progress analytics, and social sharing capabilities. Integrates with wearable devices and health platforms for seamless data synchronization.
+                        Cross-platform mobile fitness application built with React Native. Features comprehensive
+                        workout tracking, personalized training plans, progress analytics, and social sharing
+                        capabilities. Integrates with wearable devices and health platforms for seamless data
+                        synchronization.
                     </p>
                     <h5 class="mt-4 mb-3">Key Features</h5>
                     <ul style="color: #94a3b8; line-height: 1.8;">
@@ -1261,12 +995,15 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-4" style="width: 100%; height: 300px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(6, 182, 212, 0.3)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 5rem;">
+                    <div class="mb-4"
+                        style="width: 100%; height: 300px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(6, 182, 212, 0.3)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 5rem;">
                         🌐
                     </div>
                     <h4 class="mb-3">Project Overview</h4>
                     <p style="color: #94a3b8; line-height: 1.8;">
-                        A full-featured social networking platform built with Next.js and GraphQL. Includes real-time messaging, content sharing, user profiles, and advanced privacy controls. Optimized for scalability and performance with Redis caching and efficient database queries.
+                        A full-featured social networking platform built with Next.js and GraphQL. Includes real-time
+                        messaging, content sharing, user profiles, and advanced privacy controls. Optimized for
+                        scalability and performance with Redis caching and efficient database queries.
                     </p>
                     <h5 class="mt-4 mb-3">Key Features</h5>
                     <ul style="color: #94a3b8; line-height: 1.8;">
@@ -1301,12 +1038,15 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-4" style="width: 100%; height: 300px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(6, 182, 212, 0.3)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 5rem;">
+                    <div class="mb-4"
+                        style="width: 100%; height: 300px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(6, 182, 212, 0.3)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 5rem;">
                         🎮
                     </div>
                     <h4 class="mb-3">Project Overview</h4>
                     <p style="color: #94a3b8; line-height: 1.8;">
-                        A 2D game engine built from scratch using JavaScript and Canvas API with WebGL acceleration. Features include physics simulation, particle systems, sprite animation, and a visual level editor. Designed for creating browser-based games with high performance.
+                        A 2D game engine built from scratch using JavaScript and Canvas API with WebGL acceleration.
+                        Features include physics simulation, particle systems, sprite animation, and a visual level
+                        editor. Designed for creating browser-based games with high performance.
                     </p>
                     <h5 class="mt-4 mb-3">Key Features</h5>
                     <ul style="color: #94a3b8; line-height: 1.8;">
@@ -1324,8 +1064,10 @@
                         <span class="project-tag">Webpack</span>
                     </div>
                     <div class="d-flex gap-3 mt-4">
-                        <a href="#" class="btn-glow flex-fill text-center">Live Demo</a>
-                        <a href="#" class="btn-glow flex-fill text-center">GitHub</a>
+                        <a href="https://github.com/creativedesk1000" target="_blank"
+                            class="btn-glow flex-fill text-center">Live Demo</a>
+                        <a href="https://github.com/creativedesk1000" target="_blank"
+                            class="btn-glow flex-fill text-center">GitHub</a>
                     </div>
                 </div>
             </div>
@@ -1363,13 +1105,13 @@
 
         // Scroll reveal animation
         const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
-        
+
         const revealOnScroll = () => {
             const windowHeight = window.innerHeight;
             revealElements.forEach(element => {
                 const elementTop = element.getBoundingClientRect().top;
                 const revealPoint = 100;
-                
+
                 if (elementTop < windowHeight - revealPoint) {
                     element.classList.add('active');
                 }
@@ -1393,7 +1135,7 @@
 
         themeToggle.addEventListener('click', () => {
             body.classList.toggle('light-mode');
-            
+
             if (body.classList.contains('light-mode')) {
                 themeIcon.textContent = '☀️';
                 localStorage.setItem('theme', 'light');
@@ -1418,33 +1160,7 @@
                 typingText.style.borderRight = 'none';
             }
         }, 4000);
-
-        // ============================================
-        // PRELOADER FUNCTIONALITY
-        // ============================================
-        
-        // Loading percentage counter
-        let percentage = 0;
-        const percentageElement = document.getElementById('percentage');
-        const preloader = document.getElementById('preloader');
-        
-        const loadingInterval = setInterval(() => {
-            if (percentage < 100) {
-                percentage += Math.floor(Math.random() * 15) + 1;
-                if (percentage > 100) percentage = 100;
-                percentageElement.textContent = percentage;
-            } else {
-                clearInterval(loadingInterval);
-                // Fade out preloader after loading completes
-                setTimeout(() => {
-                    preloader.classList.add('fade-out');
-                    // Remove preloader from DOM after fade out
-                    setTimeout(() => {
-                        preloader.style.display = 'none';
-                    }, 600);
-                }, 500);
-            }
-        }, 80);
     </script>
 </body>
+
 </html>
