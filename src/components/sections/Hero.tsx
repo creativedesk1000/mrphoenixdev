@@ -23,7 +23,7 @@ export default function Hero() {
                             Ahtesham <span className="gradient-text">Asif</span>
                         </h1>
                         <p className="text-xl md:text-2xl text-slate-400 font-medium mb-8 max-w-2xl">
-                            Full Stack Software Engineer | Laravel | DevOps | Flutter
+                            Software Engineer | Full Stack Developer | Flutter
                         </p>
                         <p className="text-lg text-slate-500 mb-10 max-w-xl leading-relaxed">
                             Building Scalable Web Applications, Cloud Systems & Intelligent Platforms. Based in Pakistan, working globally.

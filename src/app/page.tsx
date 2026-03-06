@@ -8,8 +8,8 @@ import Experience from "@/components/sections/Experience";
 import Contact from "@/components/sections/Contact";
 
 export const metadata = {
-  title: "Ahtesham Asif | Full Stack Software Engineer",
-  description: "Official portfolio of Ahtesham Asif - Specializing in Laravel, DevOps, and Scalable Web Systems.",
+  title: "Ahtesham Asif | Software Engineer | Full Stack Developer",
+  description: "Official portfolio of Ahtesham Asif - Specializing in Building Scalable Web Applications, Cloud Systems & Intelligent Platforms.",
 };
 
 export default function Home() {

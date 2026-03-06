@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import NextImage from "next/image";
 
 export default function About() {
     return (
@@ -13,11 +14,17 @@ export default function About() {
                         viewport={{ once: true }}
                         className="flex-1"
                     >
-                        <div className="relative group">
+                        <div className="relative group max-w-md mx-auto lg:mx-0">
                             <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-                            <div className="relative glass-card p-2 rounded-2xl">
-                                <div className="w-full aspect-[4/5] bg-slate-900 rounded-xl flex items-center justify-center text-6xl">
-                                    👨‍💻
+                            <div className="relative glass-card p-2 rounded-2xl overflow-hidden">
+                                <div className="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-slate-900 shadow-2xl">
+                                    <NextImage
+                                        src="/profile.png"
+                                        alt="Ahtesham"
+                                        fill={true}
+                                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                        priority={true}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -33,7 +40,7 @@ export default function About() {
                             Driven by <span className="gradient-text">Innovation</span>
                         </h2>
                         <p className="text-slate-400 text-lg leading-relaxed mb-6">
-                            I am a Full Stack Software Engineer and BS Computer Science graduate from COMSATS University Islamabad. My journey is defined by a passion for building robust and scalable systems that drive business value.
+                            I am a Software Engineer and Full Stack Developer, a BS Computer Science graduate from COMSATS University Islamabad. My journey is defined by a passion for building robust and scalable systems that drive business value.
                         </p>
                         <div className="space-y-4">
                             <div className="flex items-start gap-4">
