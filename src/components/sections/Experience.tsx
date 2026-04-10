@@ -29,7 +29,7 @@ const experiences = [
         company: "Being Optimizer",
         organization: "Onsite Position",
         location: "Islamabad, Pakistan",
-        period: "2025 - Present",
+        period: "Mar 2026 - Present",
         description: "Worked onsite on custom website design and development projects, building modern, responsive websites for clients. Developed solutions using WordPress, Shopify, and custom CMS platforms, while also handling content management and client-specific customization requirements.",
         tech: ["WordPress", "Shopify", "CMS", "Custom Development", "UI/UX"],
         color: "from-purple-500 to-pink-500",
