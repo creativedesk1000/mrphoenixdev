@@ -18,11 +18,21 @@ const experiences = [
         role: "Full Stack Developer",
         company: "INFO Tech Solution",
         organization: "Project Based",
-        location: "Remote / Hybrid",
+        location: "Remote",
         period: "Dec 2024 - Present",
         description: "Leading the development of scalable web solutions and enterprise-grade applications. Specializing in robust backend architectures and dynamic frontend experiences.",
         tech: ["Next.js", "Laravel", "PostgreSQL", "Tailwind CSS"],
         color: "from-blue-500 to-indigo-500",
+    },
+    {
+        role: "Full Stack Developer",
+        company: "Being Optimizer",
+        organization: "Onsite Position",
+        location: "Islamabad, Pakistan",
+        period: "2025 - Present",
+        description: "Worked onsite on custom website design and development projects, building modern, responsive websites for clients. Developed solutions using WordPress, Shopify, and custom CMS platforms, while also handling content management and client-specific customization requirements.",
+        tech: ["WordPress", "Shopify", "CMS", "Custom Development", "UI/UX"],
+        color: "from-purple-500 to-pink-500",
     },
 ];
 
